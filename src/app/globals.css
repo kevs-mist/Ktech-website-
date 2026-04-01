@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* 
+  KTECH DESIGN SYSTEM — REVISION SPRINT 2.0 (APRIL 2026)
+  Design Tokens & Global Styles mapped to PRD/Taskfile specs.
+  
+  Refactored to standard CSS properties with Literals in @theme 
+  to ensure Tailwind v4 correctly generates utility classes 
+  (like bg-bg-primary, text-accent) during build.
+*/
+
+:root {
+  /* PRD Section 7 Color Tokens (Standard Vars) */
+  --bg-primary: #020617;
+  --bg-secondary: #0F172A;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --accent: #3B82F6;
+  
+  /* Animation Easing Section 4.2 */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  
+  /* Font Family Mappings */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+  --font-display: var(--font-barlow-condensed), sans-serif;
+  --font-serif: var(--font-playfair), serif;
+}
+
+@theme {
+  --color-bg-primary: #020617;
+  --color-bg-secondary: #0F172A;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-accent: #3B82F6;
+  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+  --font-display: var(--font-barlow-condensed), sans-serif;
+  --font-serif: var(--font-playfair), serif;
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Base Body Styles (PRD Section 6) */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: 400; /* Legible on dark bg per PRD §6 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Overrides (Standard CSS) */
+
+.hero-headline {
+  /* TASKFILE T01 — clamp(40px, 9vw, 110px) decramped */
+  font-size: clamp(40px, 9vw, 110px);
+  line-height: 1.15;
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+/* Ghost Number styling (PRD §7 & Taskfile T01) */
+.ghost-number {
+  opacity: 0.03; /* Barely visible background numbers per T01 */
+  font-size: clamp(120px, 15vw, 220px);
+  font-family: var(--font-display);
+  font-weight: 900;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Animation Primitives */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-premium), transform 0.8s var(--ease-premium);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibility (T07) */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .text-clip > span,
+  .marquee-track {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  transition: background-color 0.3s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent);
+}
+
+/* Lenis Smooth Scroll Configuration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
