@@ -11,10 +11,10 @@ import { ReactLenis } from "lenis/react";
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   return (
     <ReactLenis root options={{ 
-      lerp: 0.1, 
-      duration: 1.2, 
+      lerp: 0.04, 
+      duration: 1.4, 
       smoothWheel: true,
-      wheelMultiplier: 1.1,
+      wheelMultiplier: 1.0,
       infinite: false,
       autoRaf: true 
     }}>
